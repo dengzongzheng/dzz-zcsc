@@ -1,6 +1,8 @@
 package com.dzz.zcsc.domain.vo;
 
+import com.dzz.zcsc.domain.bo.HomeGoodsBo;
 import java.io.Serializable;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -14,4 +16,27 @@ import lombok.Data;
 public class GoodsHomeVo implements Serializable {
 
     private static final long serialVersionUID = -2333707236249291881L;
+
+    /**
+     * 玉器
+     */
+    private List<HomeGoodsBo> jades;
+
+
+    /**
+     * 磁器
+     */
+    private List<HomeGoodsBo> porcelains;
+
+
+    /**
+     * 书画
+     */
+    private List<HomeGoodsBo> pictures;
+
+
+    /**
+     * 其他
+     */
+    private List<HomeGoodsBo> others;
 }

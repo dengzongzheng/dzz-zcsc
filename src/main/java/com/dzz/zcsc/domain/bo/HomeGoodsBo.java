@@ -1,21 +1,20 @@
-package com.dzz.zcsc.domain.vo;
+package com.dzz.zcsc.domain.bo;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * 商品详情
+ * 首页商品BO
  *
  * @author dzz
  * @version 1.0.0
- * @since 2019年04月24 09:28
+ * @since 2019年04月24 21:41
  */
 @Data
-public class GoodsDetailVo implements Serializable {
+public class HomeGoodsBo implements Serializable {
 
-    private static final long serialVersionUID = -8941044096660529825L;
+    private static final long serialVersionUID = -8836473039479422137L;
 
     /**
      * 编号
@@ -38,8 +37,9 @@ public class GoodsDetailVo implements Serializable {
      */
     private String productImage;
 
+
     /**
-     * 图片
+     * 更新时间
      */
-    private List<String> productImages;
+    private Date updateDate;
 }

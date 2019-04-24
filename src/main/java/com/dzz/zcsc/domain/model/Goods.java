@@ -2,6 +2,7 @@ package com.dzz.zcsc.domain.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -59,7 +60,7 @@ public class Goods implements Serializable {
      * 图片
      */
     @Field("product_images")
-    private String[] productImages;
+    private List<String> productImages;
 
 
     /**
