@@ -12,3 +12,10 @@ spring:
       username: zcsc
       password: zcsc!@#456
       port: 27017
+
+
+file:
+  upload:
+    path: /data/files
+  server:
+    path: http://img.zhencangys.com/
