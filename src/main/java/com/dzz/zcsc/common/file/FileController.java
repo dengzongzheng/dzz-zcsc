@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  * 文件上传下载
@@ -43,11 +43,11 @@ public class FileController {
     /**
      * 文件上传
      *
-     * @param files files
+     * @param file file
      * @param request request
      */
     @RequestMapping(value = "/file/upload", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-    public void uploadFile(@RequestParam MultipartFile[] files, HttpServletRequest request,
+    public void uploadFile(MultipartHttpServletRequest request,@RequestParam MultipartFile[] file,
             HttpServletResponse response) {
 
         String fileName = "";
@@ -56,15 +56,16 @@ public class FileController {
         map.put("code", "1");
         map.put("message", "success");
         String uploadType = request.getParameter("uploadType");
-        for (MultipartFile file : files) {
+        for (MultipartFile file1 : file) {
             try {
-                if (!file.isEmpty()) {
-                    originalFileName = file.getOriginalFilename();
+                if (!file1.isEmpty()) {
+                    originalFileName = file1.getOriginalFilename();
+                    assert originalFileName != null;
                     String fileType = originalFileName.substring(originalFileName.indexOf("."));
                     fileName = String.valueOf(idService.getId()) + fileType;
-                    File file1 = new File(utilConfig.getUploadFilePath() + fileName);
-                    file.transferTo(file1);
-                    originalFileName = file.getOriginalFilename();
+                    File file2 = new File(utilConfig.getUploadFilePath() + fileName);
+                    file1.transferTo(file2);
+                    originalFileName = file1.getOriginalFilename();
                 }
             } catch (Exception e) {
                 map.put("code", "0");

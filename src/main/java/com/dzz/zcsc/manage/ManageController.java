@@ -3,7 +3,9 @@ package com.dzz.zcsc.manage;
 import com.dzz.zcsc.common.response.ResponseDzz;
 import com.dzz.zcsc.domain.model.Goods;
 import com.dzz.zcsc.service.GoodsService;
-import com.dzz.zcsc.service.impl.GoodsServiceMongoImpl;
+import com.dzz.zcsc.service.IdService;
+import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +24,16 @@ public class ManageController {
 
     private GoodsService goodsService;
 
-    public ManageController(GoodsServiceMongoImpl goodsService) {
+    private IdService idService;
+
+    @Autowired
+    public void setGoodsService(GoodsService goodsService) {
         this.goodsService = goodsService;
+    }
+
+    @Autowired
+    public void setIdService(IdService idService) {
+        this.idService = idService;
     }
 
     /**
@@ -33,6 +43,11 @@ public class ManageController {
     @PostMapping("/saveGoods")
     public ResponseDzz saveGoods(@RequestBody Goods goods) {
 
+        goods.setProductNo(String.valueOf(idService.getId()));
+        goods.setUpdateDate(new Date());
+        goods.setCreateDate(goods.getUpdateDate());
+        goods.setUpdater("admin");
+        goods.setCreator("admin");
         return goodsService.saveGoods(goods);
     }
 

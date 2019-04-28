@@ -16,6 +16,6 @@ spring:
 
 file:
   upload:
-    path: /data/files
+    path: /data/files/
   server:
     path: http://img.zhencangys.com/
