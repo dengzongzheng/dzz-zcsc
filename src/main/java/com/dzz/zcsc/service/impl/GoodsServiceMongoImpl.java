@@ -6,6 +6,7 @@ import com.dzz.zcsc.domain.vo.GoodsCategoryListVo;
 import com.dzz.zcsc.domain.vo.GoodsDetailVo;
 import com.dzz.zcsc.domain.vo.GoodsHomeVo;
 import com.dzz.zcsc.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,10 @@ public class GoodsServiceMongoImpl implements GoodsService {
 
     private MongoTemplate mongoTemplate;
 
-    public GoodsServiceMongoImpl(MongoTemplate mongoTemplate) {
+    @Autowired
+    public void setMongoTemplate(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
-
 
     @Override
     public ResponseDzz saveGoods(Goods goods) {

@@ -1,4 +1,4 @@
-package com.dzz.zcsc.config;
+package com.dzz.zcsc.config.common;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
