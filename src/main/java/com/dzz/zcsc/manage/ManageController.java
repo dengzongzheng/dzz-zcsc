@@ -1,6 +1,8 @@
 package com.dzz.zcsc.manage;
 
+import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
+import com.dzz.zcsc.domain.dto.ListParamDto;
 import com.dzz.zcsc.domain.model.Goods;
 import com.dzz.zcsc.service.GoodsService;
 import com.dzz.zcsc.service.IdService;
@@ -50,6 +52,18 @@ public class ManageController {
         goods.setUpdater("admin");
         goods.setCreator("admin");
         return goodsService.saveGoods(goods);
+    }
+
+
+    /**
+     * 列表查询
+     * @param param 查询条件
+     * @return 结果
+     */
+    @GetMapping("/listGoods")
+    public ResponseDzz<PageUtil> listGoods(ListParamDto param){
+
+        return goodsService.listGoods(param);
     }
 
     @GetMapping("/test")

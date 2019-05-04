@@ -49,11 +49,19 @@ public class Goods implements Serializable {
 
 
     /**
-     * 分类
+     * 分类code
      * @see com.dzz.zcsc.common.enums.CategoryEnum code
      */
     @Field("category_code")
     private String categoryCode;
+
+
+    /**
+     * 分类
+     * @see com.dzz.zcsc.common.enums.CategoryEnum name
+     */
+    @Field("category_name")
+    private String categoryName;
 
 
     /**

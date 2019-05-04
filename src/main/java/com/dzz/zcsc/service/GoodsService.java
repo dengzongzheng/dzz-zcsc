@@ -1,6 +1,8 @@
 package com.dzz.zcsc.service;
 
+import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
+import com.dzz.zcsc.domain.dto.ListParamDto;
 import com.dzz.zcsc.domain.model.Goods;
 import com.dzz.zcsc.domain.vo.GoodsCategoryListVo;
 import com.dzz.zcsc.domain.vo.GoodsDetailVo;
@@ -37,6 +39,13 @@ public interface GoodsService {
      * @return 查询结果
      */
     ResponseDzz<GoodsDetailVo> findGoodsByProductNo(String productNo);
+
+    /**
+     * 列表查询
+     * @param param 参数
+     * @return 结果
+     */
+    ResponseDzz<PageUtil> listGoods(ListParamDto param);
 
 
     /**
