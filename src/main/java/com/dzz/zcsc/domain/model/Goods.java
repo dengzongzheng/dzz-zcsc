@@ -53,7 +53,7 @@ public class Goods implements Serializable {
      * @see com.dzz.zcsc.common.enums.CategoryEnum code
      */
     @Field("category_code")
-    private String categoryCode;
+    private Integer categoryCode;
 
 
     /**

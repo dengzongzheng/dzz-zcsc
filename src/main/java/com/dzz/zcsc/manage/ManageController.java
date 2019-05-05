@@ -4,6 +4,7 @@ import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
 import com.dzz.zcsc.domain.dto.ListParamDto;
 import com.dzz.zcsc.domain.model.Goods;
+import com.dzz.zcsc.domain.vo.GoodsDetailVo;
 import com.dzz.zcsc.service.GoodsService;
 import com.dzz.zcsc.service.IdService;
 import java.util.Date;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -65,6 +67,20 @@ public class ManageController {
 
         return goodsService.listGoods(param);
     }
+
+
+    /**
+     * 详情
+     * @param productNo 编号
+     * @return 结果
+     */
+    @GetMapping("/detail")
+    public ResponseDzz<GoodsDetailVo> detail(@RequestParam("productNo") String productNo){
+
+        return goodsService.findGoodsByProductNo(productNo);
+    }
+
+
 
     @GetMapping("/test")
     public String test() {

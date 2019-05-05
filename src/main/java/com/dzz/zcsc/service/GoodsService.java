@@ -4,7 +4,6 @@ import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
 import com.dzz.zcsc.domain.dto.ListParamDto;
 import com.dzz.zcsc.domain.model.Goods;
-import com.dzz.zcsc.domain.vo.GoodsCategoryListVo;
 import com.dzz.zcsc.domain.vo.GoodsDetailVo;
 import com.dzz.zcsc.domain.vo.GoodsHomeVo;
 
@@ -55,6 +54,6 @@ public interface GoodsService {
      * @param pageSize 每页条数
      * @return 查询结果
      */
-    ResponseDzz<GoodsCategoryListVo> findGoodsByCategory(Integer categoryCode,Integer pageNo,Integer pageSize);
+    ResponseDzz<PageUtil> findGoodsByCategory(Integer categoryCode,Integer pageNo,Integer pageSize);
 
 }

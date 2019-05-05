@@ -1,13 +1,14 @@
 package com.dzz.zcsc.website;
 
+import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
-import com.dzz.zcsc.domain.vo.GoodsCategoryListVo;
 import com.dzz.zcsc.domain.vo.GoodsDetailVo;
 import com.dzz.zcsc.domain.vo.GoodsHomeVo;
 import com.dzz.zcsc.service.GoodsService;
 import com.dzz.zcsc.service.impl.GoodsServiceMongoImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -51,7 +52,8 @@ public class GoodsController {
      * @return 结果
      */
     @GetMapping("/listCategory")
-    public ResponseDzz<GoodsCategoryListVo> listCategory(Integer categoryCode,Integer pageNo,Integer pageSize){
+    public ResponseDzz<PageUtil> listCategory(@RequestParam("categoryCode") Integer categoryCode,
+    @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
 
         return goodsService.findGoodsByCategory(categoryCode, pageNo, pageSize);
     }
@@ -62,7 +64,7 @@ public class GoodsController {
      * @return 结果
      */
     @GetMapping("/detail")
-    public ResponseDzz<GoodsDetailVo> detail(String productNo){
+    public ResponseDzz<GoodsDetailVo> detail(@RequestParam("productNo") String productNo){
 
         return goodsService.findGoodsByProductNo(productNo);
     }
