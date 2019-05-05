@@ -4,14 +4,8 @@ server:
 spring:
   application:
     name: dzz-zcsc
-
-  data:
-    mongodb:
-      host: 47.92.212.198
-      database: zcsc
-      username: zcsc
-      password: zcsc!@#456
-      port: 27017
+  profiles:
+    active: dev
 
 
 file:
