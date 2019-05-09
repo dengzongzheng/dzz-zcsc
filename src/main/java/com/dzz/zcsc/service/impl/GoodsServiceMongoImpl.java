@@ -69,11 +69,18 @@ public class GoodsServiceMongoImpl implements GoodsService {
         List<HomeGoodsBo> others = mongoTemplate
                 .find(new Query().addCriteria(other).limit(6).with(sort), HomeGoodsBo.class, "goods");
 
+        List<HomeGoodsBo> recommended = mongoTemplate
+                .find(new Query().limit(12).with(new Sort(Direction.DESC, "visit_count")),
+                        HomeGoodsBo.class, "goods");
+
+
+
         GoodsHomeVo goodsHomeVo = new GoodsHomeVo();
         goodsHomeVo.setJades(jades);
         goodsHomeVo.setOthers(others);
         goodsHomeVo.setPictures(pictures);
         goodsHomeVo.setPorcelains(porcelains);
+        goodsHomeVo.setRecommended(recommended);
         return ResponseDzz.ok(goodsHomeVo);
     }
 

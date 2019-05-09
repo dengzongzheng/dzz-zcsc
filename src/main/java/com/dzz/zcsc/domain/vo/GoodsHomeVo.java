@@ -18,6 +18,11 @@ public class GoodsHomeVo implements Serializable {
     private static final long serialVersionUID = -2333707236249291881L;
 
     /**
+     * 推荐的
+     */
+    private List<HomeGoodsBo> recommended;
+
+    /**
      * 玉器
      */
     private List<HomeGoodsBo> jades;
