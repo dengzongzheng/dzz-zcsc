@@ -26,6 +26,13 @@ public interface GoodsService {
 
 
     /**
+     * 删除数据
+     * @param productNo 编号
+     * @return 结果
+     */
+    ResponseDzz<Boolean> delete(String productNo);
+
+    /**
      * 首页数据查询
      * @return 数据数据
      */

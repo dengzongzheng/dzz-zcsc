@@ -40,6 +40,12 @@ public class Goods implements Serializable {
     @Field("product_name")
     private String productName;
 
+    /**
+     * 访问量
+     */
+    @Field("visit_count")
+    private Integer visitCount;
+
 
     /**
      * 描述

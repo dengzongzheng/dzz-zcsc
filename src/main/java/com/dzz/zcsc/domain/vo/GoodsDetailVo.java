@@ -31,6 +31,12 @@ public class GoodsDetailVo implements Serializable {
 
 
     /**
+     * 访问量
+     */
+    @Field("visit_count")
+    private Integer visitCount;
+
+    /**
      * 描述
      */
     @Field("direction")

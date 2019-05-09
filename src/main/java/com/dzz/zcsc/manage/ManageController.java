@@ -80,7 +80,16 @@ public class ManageController {
         return goodsService.findGoodsByProductNo(productNo);
     }
 
+    /**
+     * 删除
+     * @param productNo 编号
+     * @return 结果
+     */
+    @PostMapping("/delete")
+    public ResponseDzz<Boolean> delete(@RequestParam String productNo) {
 
+        return goodsService.delete(productNo);
+    }
 
     @GetMapping("/test")
     public String test() {

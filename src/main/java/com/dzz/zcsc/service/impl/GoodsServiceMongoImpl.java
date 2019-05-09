@@ -11,6 +11,7 @@ import com.dzz.zcsc.domain.vo.GoodsHomeVo;
 import com.dzz.zcsc.domain.vo.GoodsListVo;
 import com.dzz.zcsc.service.GoodsService;
 import com.google.common.base.Strings;
+import com.mongodb.client.result.DeleteResult;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -41,6 +42,14 @@ public class GoodsServiceMongoImpl implements GoodsService {
     public ResponseDzz saveGoods(Goods goods) {
         mongoTemplate.save(goods);
         return ResponseDzz.ok(true);
+    }
+
+    @Override
+    public ResponseDzz<Boolean> delete(String productNo) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("product_no").is(productNo));
+        DeleteResult deleteResult = mongoTemplate.remove(query, "goods");
+        return ResponseDzz.ok(deleteResult.getDeletedCount() > 0);
     }
 
     @Override
