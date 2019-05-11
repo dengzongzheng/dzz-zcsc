@@ -5,6 +5,7 @@ import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
 import com.dzz.zcsc.domain.bo.HomeGoodsBo;
 import com.dzz.zcsc.domain.dto.ListParamDto;
+import com.dzz.zcsc.domain.dto.UpdateParamDto;
 import com.dzz.zcsc.domain.model.Goods;
 import com.dzz.zcsc.domain.vo.GoodsDetailVo;
 import com.dzz.zcsc.domain.vo.GoodsHomeVo;
@@ -12,6 +13,7 @@ import com.dzz.zcsc.domain.vo.GoodsListVo;
 import com.dzz.zcsc.service.GoodsService;
 import com.google.common.base.Strings;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 /**
@@ -42,6 +45,17 @@ public class GoodsServiceMongoImpl implements GoodsService {
     public ResponseDzz saveGoods(Goods goods) {
         mongoTemplate.save(goods);
         return ResponseDzz.ok(true);
+    }
+
+    @Override
+    public ResponseDzz updateGoods(UpdateParamDto goods) {
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("product_no").is(goods.getProductNo()));
+        Update update = new Update();
+        update.set("visit_count", goods.getVisitCount());
+        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, "goods");
+        return ResponseDzz.ok(updateResult.getModifiedCount() > 0);
     }
 
     @Override
@@ -89,6 +103,9 @@ public class GoodsServiceMongoImpl implements GoodsService {
         Query query = new Query();
         Criteria criteria = Criteria.where("product_no").is(productNo);
         query.addCriteria(criteria);
+        Update update = new Update();
+        update.inc("visit_count", 1);
+        mongoTemplate.updateFirst(query,update, "goods");
         GoodsDetailVo goodsDetailVo = mongoTemplate.findOne(query, GoodsDetailVo.class, "goods");
         return ResponseDzz.ok(goodsDetailVo);
     }

@@ -3,6 +3,7 @@ package com.dzz.zcsc.manage;
 import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
 import com.dzz.zcsc.domain.dto.ListParamDto;
+import com.dzz.zcsc.domain.dto.UpdateParamDto;
 import com.dzz.zcsc.domain.model.Goods;
 import com.dzz.zcsc.domain.vo.GoodsDetailVo;
 import com.dzz.zcsc.service.GoodsService;
@@ -42,7 +43,7 @@ public class ManageController {
     }
 
     /**
-     * 首页数据
+     * 保存数据
      * @return 结果
      */
     @PostMapping("/saveGoods")
@@ -78,6 +79,16 @@ public class ManageController {
     public ResponseDzz<GoodsDetailVo> detail(@RequestParam("productNo") String productNo){
 
         return goodsService.findGoodsByProductNo(productNo);
+    }
+
+    /**
+     * 更新数据
+     *
+     * @return 结果
+     */
+    @PostMapping("/updateGoods")
+    public ResponseDzz updateGoods(@RequestBody UpdateParamDto goods) {
+        return goodsService.updateGoods(goods);
     }
 
     /**

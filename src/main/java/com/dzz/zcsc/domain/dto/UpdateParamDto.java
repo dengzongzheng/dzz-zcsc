@@ -1,27 +1,22 @@
-package com.dzz.zcsc.domain.bo;
+package com.dzz.zcsc.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * 首页商品BO
+ * 更新数据DTO
  *
  * @author dzz
  * @version 1.0.0
- * @since 2019年04月24 21:41
+ * @since 2019年05月11 10:12
  */
 @Data
-public class HomeGoodsBo implements Serializable {
+public class UpdateParamDto implements Serializable {
 
-    private static final long serialVersionUID = -8836473039479422137L;
+    private static final long serialVersionUID = 97265307155183516L;
 
-    /**
-     * 编号
-     */
     @Field("product_no")
     private String productNo;
 
@@ -36,6 +31,7 @@ public class HomeGoodsBo implements Serializable {
      */
     @Field("visit_count")
     private Integer visitCount;
+
 
     /**
      * 描述
@@ -65,12 +61,4 @@ public class HomeGoodsBo implements Serializable {
      */
     @Field("product_images")
     private List<String> productImages;
-
-
-    /**
-     * 更新时间
-     */
-    @Field("update_date")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-    private Date updateDate;
 }

@@ -25,5 +25,4 @@ dist/
 nbdist/
 .nb-gradle/
 
-*-dev.yml
-*-prod.yml
+*.yml

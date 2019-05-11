@@ -8,8 +8,8 @@ spring:
     active: dev
   servlet:
     multipart:
-      max-file-size: 50MB
-      max-request-size: 20BM
+      max-file-size: 50Mb
+      max-request-size: 20Mb
 
 
 file:

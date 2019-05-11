@@ -3,6 +3,7 @@ package com.dzz.zcsc.service;
 import com.dzz.zcsc.common.page.PageUtil;
 import com.dzz.zcsc.common.response.ResponseDzz;
 import com.dzz.zcsc.domain.dto.ListParamDto;
+import com.dzz.zcsc.domain.dto.UpdateParamDto;
 import com.dzz.zcsc.domain.model.Goods;
 import com.dzz.zcsc.domain.vo.GoodsDetailVo;
 import com.dzz.zcsc.domain.vo.GoodsHomeVo;
@@ -24,6 +25,13 @@ public interface GoodsService {
      */
     ResponseDzz saveGoods(Goods goods);
 
+
+    /**
+     * 更新
+     * @param goods goods
+     * @return 保存结果
+     */
+    ResponseDzz updateGoods(UpdateParamDto goods);
 
     /**
      * 删除数据
