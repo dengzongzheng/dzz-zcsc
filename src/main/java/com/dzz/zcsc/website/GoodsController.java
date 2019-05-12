@@ -59,6 +59,20 @@ public class GoodsController {
     }
 
     /**
+     * 搜索
+     * @param param 查找参数
+     * @param pageNo 页号
+     * @param pageSize 每页条数
+     * @return 结果
+     */
+    @GetMapping("/search")
+    public ResponseDzz<PageUtil> searchGoods(@RequestParam("param") String param,
+            @RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
+
+        return goodsService.searchGoods(param, pageNo, pageSize);
+    }
+
+    /**
      * 详情
      * @param productNo 编号
      * @return 结果

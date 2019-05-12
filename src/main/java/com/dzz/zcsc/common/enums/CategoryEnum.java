@@ -11,9 +11,10 @@ import java.util.Objects;
  */
 public enum  CategoryEnum {
 
-    PORCELAIN(1, "磁器"),
+    PORCELAIN(1, "瓷器"),
     JADE(2, "玉器"),
     PICTURE(3, "书画"),
+    RECOMMENDED(5, "重点推荐"),
     OTHER(4, "杂项");
 
     private Integer code;

@@ -71,4 +71,15 @@ public interface GoodsService {
      */
     ResponseDzz<PageUtil> findGoodsByCategory(Integer categoryCode,Integer pageNo,Integer pageSize);
 
+
+
+    /**
+     * 搜索
+     * @param param 参数
+     * @param pageNo 页号
+     * @param pageSize 每页条数
+     * @return 查询结果
+     */
+    ResponseDzz<PageUtil> searchGoods(String param,Integer pageNo,Integer pageSize);
+
 }

@@ -14,7 +14,9 @@ import com.dzz.zcsc.service.GoodsService;
 import com.google.common.base.Strings;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -23,6 +25,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * mongo下接口实现
@@ -53,7 +56,31 @@ public class GoodsServiceMongoImpl implements GoodsService {
         Query query = new Query();
         query.addCriteria(Criteria.where("product_no").is(goods.getProductNo()));
         Update update = new Update();
-        update.set("visit_count", goods.getVisitCount());
+        if(!Strings.isNullOrEmpty(goods.getCategoryName())) {
+            update.set("category_name", goods.getCategoryName());
+        }
+        if(!Strings.isNullOrEmpty(goods.getDirection())) {
+            update.set("direction", goods.getDirection());
+        }
+
+        if(!Strings.isNullOrEmpty(goods.getProductName())) {
+            update.set("product_name", goods.getProductName());
+        }
+
+        if(!Objects.isNull(goods.getCategoryCode())) {
+            update.set("category_code", goods.getCategoryCode());
+        }
+
+        if(!CollectionUtils.isEmpty(goods.getProductImages())) {
+            update.set("product_images", goods.getProductImages());
+        }
+
+        if(!Objects.isNull(goods.getVisitCount())) {
+            update.set("visit_count", goods.getVisitCount());
+        }
+
+        update.set("update_date", new Date());
+
         UpdateResult updateResult = mongoTemplate.updateFirst(query, update, "goods");
         return ResponseDzz.ok(updateResult.getModifiedCount() > 0);
     }
@@ -74,18 +101,19 @@ public class GoodsServiceMongoImpl implements GoodsService {
         Criteria jade = Criteria.where("category_code").is(CategoryEnum.JADE.getCode());
         Criteria picture = Criteria.where("category_code").is(CategoryEnum.PICTURE.getCode());
         Criteria other = Criteria.where("category_code").is(CategoryEnum.OTHER.getCode());
+        Criteria recommend = Criteria.where("category_code").is(CategoryEnum.RECOMMENDED.getCode());
+        int limit = 8;
         List<HomeGoodsBo> porcelains = mongoTemplate
-                .find(new Query().addCriteria(porcelain).limit(6).with(sort), HomeGoodsBo.class, "goods");
+                .find(new Query().addCriteria(porcelain).limit(limit).with(sort), HomeGoodsBo.class, "goods");
         List<HomeGoodsBo> jades = mongoTemplate
-                .find(new Query().addCriteria(jade).limit(6).with(sort), HomeGoodsBo.class, "goods");
+                .find(new Query().addCriteria(jade).limit(limit).with(sort), HomeGoodsBo.class, "goods");
         List<HomeGoodsBo> pictures = mongoTemplate
-                .find(new Query().addCriteria(picture).limit(6).with(sort), HomeGoodsBo.class, "goods");
+                .find(new Query().addCriteria(picture).limit(limit).with(sort), HomeGoodsBo.class, "goods");
         List<HomeGoodsBo> others = mongoTemplate
-                .find(new Query().addCriteria(other).limit(6).with(sort), HomeGoodsBo.class, "goods");
+                .find(new Query().addCriteria(other).limit(limit).with(sort), HomeGoodsBo.class, "goods");
 
         List<HomeGoodsBo> recommended = mongoTemplate
-                .find(new Query().limit(12).with(new Sort(Direction.DESC, "visit_count")),
-                        HomeGoodsBo.class, "goods");
+                .find(new Query().addCriteria(recommend).limit(limit).with(sort),HomeGoodsBo.class, "goods");
 
 
 
@@ -150,6 +178,25 @@ public class GoodsServiceMongoImpl implements GoodsService {
         query.limit(pageUtil.getPageSize());
         List<GoodsListVo> list = mongoTemplate
                 .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()).with(sort), GoodsListVo.class,
+                        "goods");
+        pageUtil.setData(list);
+        long count = mongoTemplate.count(query, "goods");
+        pageUtil.setTotalCount((int) count);
+        pageUtil.setTotalPage();
+        return ResponseDzz.ok(pageUtil);
+    }
+
+    @Override
+    public ResponseDzz<PageUtil> searchGoods(String param, Integer pageNo, Integer pageSize) {
+
+        PageUtil<GoodsListVo> pageUtil = new PageUtil<>();
+        pageUtil.setPageSize(pageSize);
+        pageUtil.setPageNo(pageNo);
+        Query query = new Query();
+        query.addCriteria(Criteria.where("product_name").regex(".*?\\" +param+ ".*"));
+        query.limit(pageUtil.getPageSize());
+        List<GoodsListVo> list = mongoTemplate
+                .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()), GoodsListVo.class,
                         "goods");
         pageUtil.setData(list);
         long count = mongoTemplate.count(query, "goods");
