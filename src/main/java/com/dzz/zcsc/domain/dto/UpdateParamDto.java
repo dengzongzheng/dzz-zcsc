@@ -55,6 +55,11 @@ public class UpdateParamDto implements Serializable {
     @Field("category_name")
     private String categoryName;
 
+    /**
+     * 价格
+     */
+    @Field("price")
+    private String price;
 
     /**
      * 图片

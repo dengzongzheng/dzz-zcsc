@@ -61,6 +61,12 @@ public class GoodsDetailVo implements Serializable {
 
 
     /**
+     * 价格
+     */
+    @Field("price")
+    private String price;
+
+    /**
      * 图片
      */
     @Field("product_images")

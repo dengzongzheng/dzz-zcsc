@@ -67,6 +67,10 @@ public class GoodsServiceMongoImpl implements GoodsService {
             update.set("product_name", goods.getProductName());
         }
 
+        if(!Strings.isNullOrEmpty(goods.getPrice())) {
+            update.set("price", goods.getPrice());
+        }
+
         if(!Objects.isNull(goods.getCategoryCode())) {
             update.set("category_code", goods.getCategoryCode());
         }
