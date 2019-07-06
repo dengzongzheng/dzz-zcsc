@@ -1,5 +1,7 @@
 server:
   port: 9080
+  tomcat:
+    basedir: /data/temp
 
 spring:
   application:
